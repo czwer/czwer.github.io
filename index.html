@@ -86,7 +86,71 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>博客搭建步骤：</p>
+<ol>
+<li>node安装：请下载6.0以下的node版本：<ul>
+<li><a href="https://nodejs.org/dist/v5.5.0/" target="_blank" rel="external">https://nodejs.org/dist/v5.5.0/</a></li>
+</ul>
+</li>
+<li>修改npm相关文件所有者：<ul>
+<li>sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}    </li>
+</ul>
+</li>
+<li>安装node npm源管理工具，并切换到taobao<ul>
+<li>npm install -g nrm</li>
+<li>nrm use taobao</li>
+</ul>
+</li>
+<li>单独安装：dtrace-provider，避免后续下载卡主，参问题处理一<ul>
+<li>npm install -g dtrace-provider</li>
+</ul>
+</li>
+<li>安装 hexo-cli 并安装博客后，再安装npm，然后启动，本地输入：<a href="http://localhost:4000/，即可本地访问" target="_blank" rel="external">http://localhost:4000/，即可本地访问</a><ul>
+<li>npm install hexo-cli -g</li>
+<li>hexo init blog</li>
+<li>cd blog</li>
+<li>npm install</li>
+<li>hexo server </li>
+</ul>
+</li>
+<li>如果遇到DTraceProviderBindings MODULE_NOT_FOUND错误，参问题处理二</li>
+<li>gitHub上创建仓库：xxx.github.io，其中xxx为github账户</li>
+<li>安装hexo-deployer-git：<ul>
+<li>npm install hexo-deployer-git –save</li>
+</ul>
+</li>
+<li>修改本地_config.yml中的deploy：<ul>
+<li>deploy:<ul>
+<li>type: git</li>
+<li>repo: git@github.com:xxx/xxx.github.io.git</li>
+<li>branch: master</li>
+<li>message: 博客提交</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>生成静态文件：<ul>
+<li>hexo generate</li>
+</ul>
+</li>
+<li>发布到github：<ul>
+<li>hexo deploy</li>
+</ul>
+</li>
+<li>在github上进行外网访问：<ul>
+<li><a href="https://xxx.github.io/" target="_blank" rel="external">https://xxx.github.io/</a></li>
+</ul>
+</li>
+</ol>
+<p>以上部分问题的处理,感谢泉兄的协助…</p>
+<p>参考网站:    </p>
+<ol>
+<li>hexo官网: <a href="https://hexo.io/zh-cn/" target="_blank" rel="external">https://hexo.io/zh-cn/</a></li>
+<li>node下载地址: <a href="https://nodejs.org/dist/v5.5.0/" target="_blank" rel="external">https://nodejs.org/dist/v5.5.0/</a></li>
+<li>问题处理一: <a href="http://zhuscat.com/2016/07/21/solve-hexo-problems/" target="_blank" rel="external">http://zhuscat.com/2016/07/21/solve-hexo-problems/</a></li>
+<li>问题处理二: <a href="http://www.cnblogs.com/vinozly/p/5817255.html" target="_blank" rel="external">http://www.cnblogs.com/vinozly/p/5817255.html</a></li>
+</ol>
+
       
     </div>
     <footer class="article-footer">
