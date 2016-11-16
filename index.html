@@ -57,7 +57,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -142,14 +142,14 @@ mysql：3306）
         停止：./nexus stop
     6.登录的初始账号密码：admin/admin123   
 </code></pre><p>5.创建所有Maven工程的公共父pom.xml</p>
-<pre><code>方便共同属性在所有项目共用以及构件发布的配置，参：git@github.com:czwer/maven_config.git中的settings.xml
+<pre><code>方便共同属性在所有项目共用以及构件发布的配置，参：git@github.com:czwer/maven_config.git中的pom.xml
   1.以下需修改：
        groupId
        artifactId
        name
        涉及到的IP
        JDK版本视公司环境不同自行修改
-  2.修改完成后执行以下命令发布到私服：
+  2.修改完成后执行以下命令发布到私服(推荐把pom.xml放在新建的空文件夹中执行)：
        mvn deploy -N
   3.使用时，把以下放在项目根pom.xml：
         &lt;parent&gt;
@@ -363,7 +363,7 @@ cat部署因多写了server.xml多写了http://：https://www.oschina.net/questi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/10/公司基础设施搭建/" data-id="civkzbym3000018uye2qfr33u" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/11/10/公司基础设施搭建/" data-id="civl0otjk00002suyp51s1qhd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/基础设施/">基础设施</a></li></ul>
@@ -421,7 +421,7 @@ cat部署因多写了server.xml多写了http://：https://www.oschina.net/questi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/07/BQConf-24见闻/" data-id="civkzbyme000418uy6rts2nq2" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/11/07/BQConf-24见闻/" data-id="civl0otjp00012suya7dwubzj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -527,7 +527,7 @@ cat部署因多写了server.xml多写了http://：https://www.oschina.net/questi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/06/博客诞生记/" data-id="civkzbymd000318uyvneum4kr" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/11/06/博客诞生记/" data-id="civl0otjy00042suy0ivaoaae" class="article-share-link">Share</a>
       
       
     </footer>
@@ -572,7 +572,7 @@ cat部署因多写了server.xml多写了http://：https://www.oschina.net/questi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/06/hello-world/" data-id="civkzbym8000118uystt60n2z" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/11/06/hello-world/" data-id="civl0otjw00032suynfn0rzwi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -592,7 +592,7 @@ cat部署因多写了server.xml多写了http://：https://www.oschina.net/questi
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Labels</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础设施/">基础设施</a></li></ul>
     </div>
@@ -611,7 +611,7 @@ cat部署因多写了server.xml多写了http://：https://www.oschina.net/questi
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archieven</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
     </div>
@@ -621,7 +621,7 @@ cat部署因多写了server.xml多写了http://：https://www.oschina.net/questi
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recente berichten</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
