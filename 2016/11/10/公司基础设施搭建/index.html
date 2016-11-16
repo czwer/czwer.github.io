@@ -29,7 +29,7 @@
 依赖环境：
 1.操作系统：Linux系统
 2.JDK版本：1.7.0_">
-<meta property="og:updated_time" content="2016-11-16T14:23:59.000Z">
+<meta property="og:updated_time" content="2016-11-16T14:31:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="公司服务化基础设施搭建">
 <meta name="twitter:description" content="刚入职新公司，发现新公司的基础设施尚处于空白状态。同事也很想把自己原公司所使用的相关技术引入到现在的工作中。花费了大约1周的左右，把以下成功引入,搭建了一个会员服务框架,示例服务为exmaple-service：
@@ -85,7 +85,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -156,13 +156,13 @@ mysql：3306）
 官网：http://nexus.sonatype.org/downloads/
 安装步骤如下：    
     1.创建存放的目录
-        mkdir /home/xxx/nexus
+        mkdir /xxx/xxx/nexus
     2.下载nexus安装包：
         wget https://sonatype-download.global.ssl.fastly.net/nexus/oss/nexus-2.14.0-01-bundle.tar.gz
     3.解压：
-        tar zxvf nexus-2.14.0-01-bundle.tar.gz -C /home/xxx/nexus
+        tar zxvf nexus-2.14.0-01-bundle.tar.gz -C /xxx/xxx/nexus
     4.切到nexus目录的bin下：
-        cd /home/xxx/nexus/nexus-2.14.0-01/bin/
+        cd /xxx/xxx/nexus/nexus-2.14.0-01/bin/
     5.启动/停止nexus(自带jetty,使用jetty启动)：
         启动：./nexus start
         停止：./nexus stop
@@ -189,53 +189,53 @@ mysql：3306）
 官网：http://zookeeper.apache.org/
 安装步骤如下：
     1.创建存放的目录
-        mkdir -p /home/xxx/zookeeper
+        mkdir -p /xxx/xxx/zookeeper
     2.下载安装包
         wget http://www.apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
     3.解压：
-        tar zxvf zookeeper-3.4.6.tar.gz -C /home/xxx/zookeeper
+        tar zxvf zookeeper-3.4.6.tar.gz -C /xxx/xxx/zookeeper
     4.创建快照文件的目录：
-        mkdir -p /home/xxx/zookeeper/data/zk1
-        mkdir -p /home/xxx/zookeeper/data/zk2
-        mkdir -p /home/xxx/zookeeper/data/zk3
+        mkdir -p /xxx/xxx/zookeeper/data/zk1
+        mkdir -p /xxx/xxx/zookeeper/data/zk2
+        mkdir -p /xxx/xxx/zookeeper/data/zk3
     5.创建myid文件
-        echo &quot;1&quot; &gt; /home/xxx/zookeeper/data/zk1/myid
-        echo &quot;2&quot; &gt; /home/xxx/zookeeper/data/zk2/myid
-        echo &quot;3&quot; &gt; /home/xxx/zookeeper/data/zk3/myid
-    6.修改配置文件/home/xxx/zookeeper/zookeeper-3.4.6/conf
+        echo &quot;1&quot; &gt; /xxx/xxx/zookeeper/data/zk1/myid
+        echo &quot;2&quot; &gt; /xxx/xxx/zookeeper/data/zk2/myid
+        echo &quot;3&quot; &gt; /xxx/xxx/zookeeper/data/zk3/myid
+    6.修改配置文件/xxx/xxx/zookeeper/zookeeper-3.4.6/conf
         cp zoo_sample.cfg zoo1.cfg
         cp zoo_sample.cfg zoo2.cfg
         cp zoo_sample.cfg zoo3.cfg
         修改zoo1.cfg：
-            dataDir=/home/xxx/zookeeper/data/zk1
-            dataLogDir=/home/xxx/logs/zookeeper/zk1
+            dataDir=/xxx/xxx/zookeeper/data/zk1
+            dataLogDir=/xxx/xxx/logs/zookeeper/zk1
             clientPort=2181
             server.1=localhost:2888:3888
             server.2=localhost:2889:3889
             server.3=localhost:2890:3890
         修改zoo2.cfg：
-            dataDir=/home/xxx/zookeeper/data/zk2
-            dataLogDir=/home/xxx/logs/zookeeper/zk2
+            dataDir=/xxx/xxx/zookeeper/data/zk2
+            dataLogDir=/xxx/xxx/logs/zookeeper/zk2
             clientPort=2182
             server.1=localhost:2888:3888
             server.2=localhost:2889:3889
             server.3=localhost:2890:3890
         修改zoo3.cfg：
-            dataDir=/home/xxx/zookeeper/data/zk3
-            dataLogDir=/home/xxx/logs/zookeeper/zk3
+            dataDir=/xxx/xxx/zookeeper/data/zk3
+            dataLogDir=/xxx/xxx/logs/zookeeper/zk3
             clientPort=2183
             server.1=localhost:2888:3888
             server.2=localhost:2889:3889
             server.3=localhost:2890:3890
     7.启动与停止
         启动：
-            ./zkServer.sh  start /home/xxx/zookeeper/zookeeper-3.4.6/conf/zoo1.cfg
-            ./zkServer.sh  start /home/xxx/zookeeper/zookeeper-3.4.6/conf/zoo2.cfg
-            ./zkServer.sh  start /home/xxx/zookeeper/zookeeper-3.4.6/conf/zoo3.cfg
+            ./zkServer.sh  start /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo1.cfg
+            ./zkServer.sh  start /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo2.cfg
+            ./zkServer.sh  start /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo3.cfg
         停止：
-            ./zkServer.sh stop /home/xxx/zookeeper/zookeeper-3.4.6/conf/zoo1.cfg
-            ./zkServer.sh stop /home/xxx/zookeeper/zookeeper-3.4.6/conf/zoo2.cfg
-            ./zkServer.sh stop /home/xxx/zookeeper/zookeeper-3.4.6/conf/zoo3.cfg
+            ./zkServer.sh stop /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo1.cfg
+            ./zkServer.sh stop /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo2.cfg
+            ./zkServer.sh stop /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo3.cfg
 
     8.验证是否部署成功
         telnet xxx.xxx.xxx.xxx 2181
@@ -265,18 +265,18 @@ mysql：3306）
     4.上传代码dubbo-admin到服务器上：
         sftp -oPort=22 abc@xxx.xxx.xxx.xxx
         输入密码：xxxxxx
-        put /xxx/dubbo/dubbo-admin/target/dubbo-admin-2.5.4-SNAPSHOT.war /home/xxx/dubbo-admin
+        put /xxx/dubbo/dubbo-admin/target/dubbo-admin-2.5.4-SNAPSHOT.war /xxx/xxx/dubbo-admin
     5.解压并删除原war包
         jar -xvf dubbo-admin-2.5.4-SNAPSHOT.war
-        mv dubbo-admin-2.5.4-SNAPSHOT.war /home/xxx/temp/
+        mv dubbo-admin-2.5.4-SNAPSHOT.war /xxx/xxx/temp/
     6.修改配置文件dubbo-admin/WEB-INF/dubbo.properties(其中xxx.xxx.xxx.xxx为zookeeper部署地址)：
         dubbo.registry.address=zookeeper://xxx.xxx.xxx.xxx:2181?backup= xxx.xxx.xxx.xxx:2182, 
         xxx.xxx.xxx.xxx:2183
-    7.修改日志位置:/home/xxx/dubbo-admin/WEB-INF/log4j.xml
-        &lt;param name=&quot;file&quot; value=&quot;/home/xxx/logs/dubbo/admin/dubbo-governance.log&quot; /&gt;
-    8.部署到tomcat中，添加配置，在/home/xxx/tomcat/apache-tomcat-7.0.72/conf/server.xml的&lt;Host&gt;中添加：
+    7.修改日志位置:/xxx/xxx/dubbo-admin/WEB-INF/log4j.xml
+        &lt;param name=&quot;file&quot; value=&quot;/xxx/xxx/logs/dubbo/admin/dubbo-governance.log&quot; /&gt;
+    8.部署到tomcat中，添加配置，在/xxx/xxx/tomcat/apache-tomcat-7.0.72/conf/server.xml的&lt;Host&gt;中添加：
         &lt;Context path=&quot;/dubboAdmin&quot;
-          docBase=&quot;/home/xxx/dubbo-admin/&quot;
+          docBase=&quot;/xxx/xxx/dubbo-admin/&quot;
           crossContext=&quot;true&quot;
           reloadable=&quot;false&quot;
           debug=&quot;0&quot;/&gt;
@@ -322,10 +322,10 @@ mysql：3306）
          git checkout master
          mv clean install -DskipTests
      3.在服务器上创建部署目录：
-         mkdir -p /home/xxx/cat
+         mkdir -p /xxx/xxx/cat
      4.把本地编译的上传到服务器上：
          sftp -oPort=22 xxxx@xxx.xxx.xxx.xxx
-         cd /home/xxx/cat
+         cd /xxx/xxx/cat
          put /xxx/cat/cat-home/target/cat-alpha-1.3.6.war 
      5.解压并移除原来的war包：
          jar -xvf cat-alpha-1.3.6.war
@@ -390,7 +390,7 @@ cat部署因多写了server.xml多写了http://：https://www.oschina.net/questi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/10/公司基础设施搭建/" data-id="civl0p7ag000138uyina8xs7j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/10/公司基础设施搭建/" data-id="civl0zx7e000342uygz5c8dyo" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/基础设施/">基础设施</a></li></ul>
@@ -403,7 +403,7 @@ cat部署因多写了server.xml多写了http://：https://www.oschina.net/questi
   
   
     <a href="/2016/11/07/BQConf-24见闻/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Ouder</strong>
       <div class="article-nav-title">BQConf-24见闻</div>
     </a>
   
@@ -421,7 +421,7 @@ cat部署因多写了server.xml多写了http://：https://www.oschina.net/questi
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Labels</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础设施/">基础设施</a></li></ul>
     </div>
@@ -440,7 +440,7 @@ cat部署因多写了server.xml多写了http://：https://www.oschina.net/questi
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archieven</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
     </div>
@@ -450,7 +450,7 @@ cat部署因多写了server.xml多写了http://：https://www.oschina.net/questi
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Recente berichten</h3>
     <div class="widget">
       <ul>
         
