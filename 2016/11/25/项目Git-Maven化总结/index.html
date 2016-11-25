@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>项目Git+Maven化总结 | Java工匠</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="公司原Java项目历史悠长，使用的版本管理为Svn，且尚未Maven化。为了后续提高开发效率，及持续集成，就和同事一起负责把项目进行Git+Maven化（个人负责Maven化）。期间也涉及到Java代码由GBK转UTF-8的过程（原项目混合GBK和UTF-8），统一了项目的编码。实施过程如下（含Svn转Git）：
+一. Svn转Git管理
+1.进入xxx项目根路径，删除隐藏文件.svn
+    r">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目Git+Maven化总结">
+<meta property="og:url" content="http://yoursite.com/2016/11/25/项目Git-Maven化总结/index.html">
+<meta property="og:site_name" content="Java工匠">
+<meta property="og:description" content="公司原Java项目历史悠长，使用的版本管理为Svn，且尚未Maven化。为了后续提高开发效率，及持续集成，就和同事一起负责把项目进行Git+Maven化（个人负责Maven化）。期间也涉及到Java代码由GBK转UTF-8的过程（原项目混合GBK和UTF-8），统一了项目的编码。实施过程如下（含Svn转Git）：
+一. Svn转Git管理
+1.进入xxx项目根路径，删除隐藏文件.svn
+    r">
+<meta property="og:updated_time" content="2016-11-25T16:25:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="项目Git+Maven化总结">
+<meta name="twitter:description" content="公司原Java项目历史悠长，使用的版本管理为Svn，且尚未Maven化。为了后续提高开发效率，及持续集成，就和同事一起负责把项目进行Git+Maven化（个人负责Maven化）。期间也涉及到Java代码由GBK转UTF-8的过程（原项目混合GBK和UTF-8），统一了项目的编码。实施过程如下（含Svn转Git）：
+一. Svn转Git管理
+1.进入xxx项目根路径，删除隐藏文件.svn
+    r">
+  
+    <link rel="alternate" href="/atom.xml" title="Java工匠" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Java工匠</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">编码让世界变得更美好</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-项目Git-Maven化总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/25/项目Git-Maven化总结/" class="article-date">
+  <time datetime="2016-11-25T13:55:28.000Z" itemprop="datePublished">2016-11-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      项目Git+Maven化总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>公司原Java项目历史悠长，使用的版本管理为Svn，且尚未Maven化。为了后续提高开发效率，及持续集成，就和同事一起负责把项目进行Git+Maven化（个人负责Maven化）。期间也涉及到Java代码由GBK转UTF-8的过程（原项目混合GBK和UTF-8），统一了项目的编码。<br>实施过程如下（含Svn转Git）：</p>
+<p>一. Svn转Git管理</p>
+<pre><code>1.进入xxx项目根路径，删除隐藏文件.svn
+    rm -rf .svn
+2.git初始化管理
+    git init
+3.在gitLib中创建远程仓库
+4.项目创建.gitignore文件，描述git管理忽略的文件
+    .idea/
+    .project
+    *.iml
+    target/
+    .settings/
+5.本地git项目关联远程仓库,至此Svn转Git结束
+    git remote add origin https://xxx.gitlab.com/java/xxx.git
+    git add .
+    git commit -m &quot;项目初始化&quot;
+    git push -u origin master               
+</code></pre><p>二.Maven化（请保证外网与局域网的网络良好）</p>
+<pre><code>1. 在项目根路径下创建pom.xml文件，用于添加项目依赖的jar
+2. 在pom.xml中逐一添加jar引用：
+    (a).在中央仓库：http://mvnrepository.com/或阿里Maven私服：http://maven.aliyun.com/nexus/根据jar名称搜索
+    获得具体maven坐标，并拷贝到pom.xml中。如存不同组织相同名称的jar。可以使用以下命令查看jar内容，根据类路径进一步判断：
+        jar -tf xxx.jar
+    (b).如果项目引用的jar在中央仓库中未找到，需要把该jar手动上传到Nexus私服,然后再添加到pom.xml中。 
+3.把现在WEB-INF下的lib目录移除到项目外
+4.检查现在项目结构是否为标准Maven项目目录结构，如果不是创建目录，然后移动原目录或文件；
+5.现在的项目进行构建，看是否能够编译成功：如编译失败可能jar依赖有遗留，添加后，反复执行，直至成功编译
+6.检查项目中jar包是否存在版本依赖冲突，如存在使用exclusion进行排除冲突：
+    mvn dependency:tree -Dverbose | grep &quot;omitted for conflict with&quot;
+7.查看target中生成编译后的lib目录与项目外的lib是否相同，肉眼核实一遍，然后删除项目外的lib。
+8.启动项目，随机验证项目功能是否可以正常使用，Maven化至此也完成：
+    (a).项目首先使用的jetty尝试运行，发现jetty运行报web.xml中使用servlet的找不到，经检查确实不存在，而原来tomcat
+    运行正常，可见tomcat对类的启动过程没有校验是否存在（具体机制后续学习）；
+    (b).jetty启动后，发现布局乱掉，具体原因尚未找到。后转maven的tomcat插件运行，正常使用（经Fiddler抓包发现，有收到
+    js，但在浏览器中查看为空---现未解决，留在在后面有时间处理）。
+</code></pre><p>三. Java代码由GBK-&gt;UTF-8</p>
+<pre><code>文件编码识别推荐以下两款开源软件（不保证百分百正确，需自己核实结果的正确性）：
+    (a).juniversalchardet：https://github.com/thkoch2001/juniversalchardet
+    (b).jchardet：http://jchardet.sourceforge.net/
+以上识别的结果，再结合IDEA文件显示的编码进行验证确认。
+</code></pre><p>四. 项目提测与团队推广</p>
+<pre><code>1.项目代码申请全面回归测试
+2.团队内推广Git+Maven+IDEA使用（见上篇Dubbo+Cat分布式服务搭建中可找到相关学习资料）。团队推广是发现各种奇葩问题：
+    (a).推荐项目Maven在IDEA中的配置，使用maven安装路径conf的setting.xml,及当前用户下.m2本地库---部分同学工具编译
+    正常，命令编译失败，由此造成
+    (b).Windows安装JDK与Jre的安装比较独立，请格外注意，保证两者都要安装，Mac不需要关心Jre的问题
+    (c).Window默认编码为GBK，Mac为UTF-8，而我们项目为UTF-8，如果在pom.xml中未指定编码可能某些类会在Windows编译不
+    通过,Mac正常。---推荐设定编码
+    (d).有的是IDEA问题：旧版本的IDEA可能需要额外配置参数（如Maven编码），新版本可以直接使用---推荐使用最新版本；
+    (e).曾遇到某个类找不到竟然是jar冲突导致---推荐检查项目中jar包是否存在版本依赖冲突(如二.6所述，这一条是补加的)
+    (f).Maven使用中总是报某个类找不到，后重装Maven竟然好了（太神奇了）
+    (g).现公司网路实在太差了，有时在Maven编译时，总是下不到依赖的jar，只能手动一个个下载上传到本地私服。---强烈建议
+    有个好的网络，珍惜生命
+3.发现团队内用到的工具统一版本，很有必要，否则可能在我的机器正常，在你的机器上就运行不起来，现在约定了以下开发工具的使用
+版本：
+    JDK：1.7.0_79（想推荐Java8，考虑到影响范围广，暂不升级）
+    IDEA：&gt;=2016.2
+    Git：&gt;= 2.3.8
+    Maven：3.3.9
+</code></pre><p>参：</p>
+<ol>
+<li>中央仓库Web访问：<a href="http://mvnrepository.com/" target="_blank" rel="external">http://mvnrepository.com/</a></li>
+<li>阿里Maven私服Web访问：<a href="http://maven.aliyun.com/nexus/" target="_blank" rel="external">http://maven.aliyun.com/nexus/</a></li>
+<li>MavenFilteringException找不到：<a href="https://my.oschina.net/u/584441/blog/793356" target="_blank" rel="external">https://my.oschina.net/u/584441/blog/793356</a></li>
+<li>Maven:Perhaps you are running on a JRE rather than a JDK：<a href="https://my.oschina.net/u/584441/blog/794562" target="_blank" rel="external">https://my.oschina.net/u/584441/blog/794562</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/11/25/项目Git-Maven化总结/" data-id="civxyoe090003thuywzpmi2cr" class="article-share-link">Delen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/基础设施/">基础设施</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/11/16/Dubbo+Cat分布式服务搭建/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ouder</strong>
+      <div class="article-nav-title">Dubbo+Cat分布式服务搭建</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Labels</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础设施/">基础设施</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/基础设施/" style="font-size: 10px;">基础设施</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archieven</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recente berichten</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/11/25/项目Git-Maven化总结/">项目Git+Maven化总结</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/16/Dubbo+Cat分布式服务搭建/">Dubbo+Cat分布式服务搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/07/BQConf-24见闻/">BQConf-24见闻</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/06/博客诞生记/">博客诞生记</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/06/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 工匠<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
