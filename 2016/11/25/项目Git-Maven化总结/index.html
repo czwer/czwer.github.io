@@ -17,7 +17,7 @@
 一. Svn转Git管理
 1.进入xxx项目根路径，删除隐藏文件.svn
     r">
-<meta property="og:updated_time" content="2016-11-25T16:28:43.000Z">
+<meta property="og:updated_time" content="2016-11-25T16:41:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="项目Git+Maven化总结">
 <meta name="twitter:description" content="公司原Java项目历史悠长，使用的版本管理为Svn，且尚未Maven化。为了后续提高开发效率，及持续集成，就和同事一起负责把项目进行Git+Maven化（个人负责Maven化）。期间也涉及到Java代码由GBK转UTF-8的过程（原项目混合GBK和UTF-8），统一了项目的编码。实施过程如下（含Svn转Git）：
@@ -143,7 +143,7 @@
 <pre><code>1.项目代码申请全面回归测试
 2.团队内推广Git+Maven+IDEA使用（见上篇Dubbo+Cat分布式服务搭建中可找到相关学习资料）。团队推广是发现各种奇葩问题：
     (a).推荐项目Maven在IDEA中的配置，使用maven安装路径conf的setting.xml,及当前用户下.m2本地库---部分同学工具编译
-    正常，命令编译失败，由此造成
+    与命令编译环境一致，避免不必要的麻烦
     (b).Windows安装JDK与Jre的安装比较独立，请格外注意，保证两者都要安装，Mac不需要关心Jre的问题
     (c).Window默认编码为GBK，Mac为UTF-8，而我们项目为UTF-8，如果在pom.xml中未指定编码可能某些类会在Windows编译不
     通过,Mac正常。---推荐设定编码
@@ -169,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/25/项目Git-Maven化总结/" data-id="civy05wro0004vnuyguvx93zq" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/11/25/项目Git-Maven化总结/" data-id="civy0mkb70001wkuyl9zrflu2" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/基础设施/">基础设施</a></li></ul>
