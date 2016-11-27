@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="null"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="专注Java后端"><title>Dubbo+Cat分布式服务搭建 | Java工匠</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Dubbo+Cat分布式服务搭建</h1><a id="logo" href="/.">Java工匠</a><p class="description">编码让世界变得更美好</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Start</i></a><a href="/archives/"><i class="fa fa-archive"> Archiv</i></a><a href="/about/"><i class="fa fa-user"> Über</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Dubbo+Cat分布式服务搭建</h1><div class="post-meta">Nov 16, 2016<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><p>刚入职新公司，发现新公司的基础设施尚处于空白状态。同事也很想把自己原公司所使用的相关技术引入到现在的工作中。花费了大约1周的左右，把以下成功引入,搭建了一个会员服务框架,示例服务为exmaple-service：</p>
+<!DOCTYPE html><html lang="null"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="专注Java后端"><title>Dubbo+Cat分布式服务搭建 | Java工匠</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Dubbo+Cat分布式服务搭建</h1><a id="logo" href="/.">Java工匠</a><p class="description">编码让世界变得更美好</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Dubbo+Cat分布式服务搭建</h1><div class="post-meta">Nov 16, 2016<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><p>刚入职新公司，发现新公司的基础设施尚处于空白状态。同事也很想把自己原公司所使用的相关技术引入到现在的工作中。花费了大约1周的左右，把以下成功引入,搭建了一个会员服务框架,示例服务为exmaple-service：</p>
 <ol>
 <li>IDEA</li>
 <li>Maven</li>
@@ -13,23 +13,23 @@
 <li>JDK版本：1.7.0_79(强烈推荐使用该版本及以下版本，避免引起其他问题)</li>
 <li>Git（部署的机器已安装）</li>
 <li>Tomcat</li>
-<li>请务必放开对各端口的访问权限（dubbo：20880，cat：2280，tomcat：8080，nexus：8081，zookeeper：2181/2182/2183，<br>mysql：3306）</li>
+<li>请务必放开对各端口的访问权限（dubbo：20880，cat：2280，tomcat：8080，nexus：8081，zookeeper：2181/2182/2183，mysql：3306）</li>
 <li>强烈推荐部署为非root的用户</li>
 </ol>
 <p>以下详细介绍下搭建的整个过程：</p>
 <p>1.Git安装与使用在此不做过多描述，推荐看以下资料：</p>
-<ol>
+<ul>
 <li>官方文档：<a href="http://git-scm.com/book/zh/v1" target="_blank" rel="external">http://git-scm.com/book/zh/v1</a></li>
 <li>廖雪峰的git教程：<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000</a></li>
 <li>快速指南：<a href="http://www.bootcss.com/p/git-guide/" target="_blank" rel="external">http://www.bootcss.com/p/git-guide/</a></li>
-</ol>
+</ul>
 <p>2.IDEA开发工具的安装与使用在此也不做过多描述，推荐看以下资料：</p>
-<ol>
+<ul>
 <li>官网：<a href="http://www.jetbrains.com/idea/" target="_blank" rel="external">http://www.jetbrains.com/idea/</a></li>
 <li>教程：<a href="https://github.com/judasn/IntelliJ-IDEA-Tutorial" target="_blank" rel="external">https://github.com/judasn/IntelliJ-IDEA-Tutorial</a></li>
 <li>推荐安装插件：.ignore,Lombok,File Info,CodeGlance</li>
 <li>正式使用前，请配置JDK，Maven，Git环境</li>
-</ol>
+</ul>
 <p>3.开发者本地Maven安装</p>
 <ul>
 <li>官网：<a href="http://maven.apache.org" target="_blank" rel="external">http://maven.apache.org</a></li>
@@ -39,235 +39,153 @@
 <li>安装过程如下：    <ol>
 <li>下载maven并解压到安装目录</li>
 <li>配置环境变量</li>
-<li>替换maven/conf/settings.xml,可参考settings.xml见：git@github.com:czwer/maven_config.git中的<br>settings.xml，使用前修改IP地址（IP地址为稍后部署的Nexus私服地址，推荐原setttings.xml备份）</li>
+<li>替换maven/conf/settings.xml,可参考settings.xml见：git@github.com:czwer/maven_config.git中的settings.xml，使用前修改IP地址（IP地址为稍后部署的Nexus私服地址，推荐原setttings.xml备份）</li>
 </ol>
 </li>
 </ul>
 <p>4.首先搭建Nexus私服</p>
-<pre><code>Nexus私服作为公司内部仓库，依赖外部和公司内部编译的jar，都会发布到私服中。方便其他项目引用。
-官网：http://nexus.sonatype.org/downloads/
-安装步骤如下：    
-    1.创建存放的目录
-        mkdir -p /xxx/xxx/nexus
-    2.下载nexus安装包：
-        wget https://sonatype-download.global.ssl.fastly.net/nexus/oss/nexus-2.14.0-01-bundle.tar.gz
-    3.解压：
-        tar zxvf nexus-2.14.0-01-bundle.tar.gz -C /xxx/xxx/nexus
-    4.切到nexus目录的bin下：
-        cd /xxx/xxx/nexus/nexus-2.14.0-01/bin/
-    5.启动/停止nexus(自带jetty,使用jetty启动)：
-        启动：./nexus start
-        停止：./nexus stop
-    6.登录的初始账号密码：admin/admin123   
-</code></pre><p>5.创建所有Maven工程的公共父pom.xml</p>
-<pre><code>方便共同属性在所有项目共用以及构件发布的配置，参：git@github.com:czwer/maven_config.git中的pom.xml
-  1.以下需修改：
-       groupId
-       artifactId
-       name
-       涉及到的IP
-       JDK版本视公司环境不同自行修改
-  2.修改完成后执行以下命令发布到私服(推荐把pom.xml放在新建的空文件夹中执行)：
-       mvn deploy -N
-  3.使用时，把以下放在项目根pom.xml：
-        &lt;parent&gt;
-            &lt;groupId&gt;com.xxx&lt;/groupId&gt;
-            &lt;artifactId&gt;xxx-parent&lt;/artifactId&gt;
-            &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
-        &lt;/parent&gt;
-</code></pre><p>6.Zookeeper伪集群搭建（仅限开发测试环境部署）：</p>
-<pre><code>ZooKeeper为分布式应用提供了高效且可靠的分布式协调服务，提供了诸如统一命名服务，配置管理和分布式锁等分布式的基础服务。
-在这里我们因使用Dubbo作为分布式服务框架，而Dubbo需要注册中心，Zookeeper在这里担任的就是注册中心的角色。
-官网：http://zookeeper.apache.org/
-安装步骤如下：
-    1.创建存放的目录
-        mkdir -p /xxx/xxx/zookeeper
-    2.下载安装包
-        wget http://www.apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
-    3.解压：
-        tar zxvf zookeeper-3.4.6.tar.gz -C /xxx/xxx/zookeeper
-    4.创建快照文件的目录：
-        mkdir -p /xxx/xxx/zookeeper/data/zk1
-        mkdir -p /xxx/xxx/zookeeper/data/zk2
-        mkdir -p /xxx/xxx/zookeeper/data/zk3
-    5.创建myid文件
-        echo &quot;1&quot; &gt; /xxx/xxx/zookeeper/data/zk1/myid
-        echo &quot;2&quot; &gt; /xxx/xxx/zookeeper/data/zk2/myid
-        echo &quot;3&quot; &gt; /xxx/xxx/zookeeper/data/zk3/myid
-    6.修改配置文件/xxx/xxx/zookeeper/zookeeper-3.4.6/conf
-        cp zoo_sample.cfg zoo1.cfg
-        cp zoo_sample.cfg zoo2.cfg
-        cp zoo_sample.cfg zoo3.cfg
-        修改zoo1.cfg：
-            dataDir=/xxx/xxx/zookeeper/data/zk1
-            dataLogDir=/xxx/xxx/logs/zookeeper/zk1
-            clientPort=2181
-            server.1=localhost:2888:3888
-            server.2=localhost:2889:3889
-            server.3=localhost:2890:3890
-        修改zoo2.cfg：
-            dataDir=/xxx/xxx/zookeeper/data/zk2
-            dataLogDir=/xxx/xxx/logs/zookeeper/zk2
-            clientPort=2182
-            server.1=localhost:2888:3888
-            server.2=localhost:2889:3889
-            server.3=localhost:2890:3890
-        修改zoo3.cfg：
-            dataDir=/xxx/xxx/zookeeper/data/zk3
-            dataLogDir=/xxx/xxx/logs/zookeeper/zk3
-            clientPort=2183
-            server.1=localhost:2888:3888
-            server.2=localhost:2889:3889
-            server.3=localhost:2890:3890
-    7.启动与停止
-        启动：
-            ./zkServer.sh  start /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo1.cfg
-            ./zkServer.sh  start /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo2.cfg
-            ./zkServer.sh  start /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo3.cfg
-        停止：
-            ./zkServer.sh stop /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo1.cfg
-            ./zkServer.sh stop /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo2.cfg
-            ./zkServer.sh stop /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo3.cfg
-
-    8.验证是否部署成功
-        telnet xxx.xxx.xxx.xxx 2181
-        telnet xxx.xxx.xxx.xxx 2182
-        telnet xxx.xxx.xxx.xxx 2183
-</code></pre><p>7.部署Tomcat</p>
-<pre><code>官网：http://tomcat.apache.org/
-安装过程如下：
-    1.创建安装目录
-        mkdir -p /xxx/xxx/tomcat
-    2.获取tomcat安装包
-        wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-7/v7.0.73/bin/apache-tomcat-7.0.73.tar.gz
-    3.解压：
-        tar zxvf apache-tomcat-7.0.73.tar.gz -C /xxx/xxx/tomcat
-</code></pre><p>8.Dubbo服务治理中心搭建</p>
-<pre><code>官网：http://dubbo.io/
-源代码：https://github.com/alibaba/dubbo
-安装过程如下：
-    1.下载dubbo源代码到开发者机器上
-        git clone https://github.com/alibaba/dubbo.git
-    2.编译源代码并打war包（强烈推荐JDK1.7环境），编译需要花些时间，
-    要有耐心耐心（可以把本地settings.xml临时修改为指向：http://maven.aliyun.com/nexus以节省时间）：
-        mvn eclipse:eclipse
-        mvn clean install -Dmaven.test.skip
-    3.在部署的服务器上创建dubbo部署目录：
-        mkdir -p /xxx/xxx/dubbo-admin
-    4.上传代码dubbo-admin到服务器上：
-        sftp -oPort=22 abc@xxx.xxx.xxx.xxx
-        输入密码：xxxxxx
-        put /xxx/dubbo/dubbo-admin/target/dubbo-admin-2.5.4-SNAPSHOT.war /xxx/xxx/dubbo-admin
-    5.解压并删除原war包
-        jar -xvf dubbo-admin-2.5.4-SNAPSHOT.war
-        mv dubbo-admin-2.5.4-SNAPSHOT.war /xxx/xxx/temp/
-    6.修改配置文件dubbo-admin/WEB-INF/dubbo.properties(其中xxx.xxx.xxx.xxx为zookeeper部署地址)：
-        dubbo.registry.address=zookeeper://xxx.xxx.xxx.xxx:2181?backup= xxx.xxx.xxx.xxx:2182, 
-        xxx.xxx.xxx.xxx:2183
-    7.修改日志位置:/xxx/xxx/dubbo-admin/WEB-INF/log4j.xml
-        &lt;param name=&quot;file&quot; value=&quot;/xxx/xxx/logs/dubbo/admin/dubbo-governance.log&quot; /&gt;
-    8.部署到tomcat中，添加配置，在/xxx/xxx/tomcat/apache-tomcat-7.0.72/conf/server.xml的&lt;Host&gt;中添加：
-        &lt;Context path=&quot;/dubboAdmin&quot;
-          docBase=&quot;/xxx/xxx/dubbo-admin/&quot;
-          crossContext=&quot;true&quot;
-          reloadable=&quot;false&quot;
-          debug=&quot;0&quot;/&gt;
-    9.启动tomcat
-    10.访问首页：
-         访问地址：http://xxx.xxx.xxx.xxx:8080/dubboAdmin/index.html
-         账号：root
-         密码：root
-</code></pre><p>9.Dubbo接入Cat</p>
-<pre><code>接入的原理就是在Dubbo中接入Cat的Transaction。
-具体步骤如下,代码参：git@github.com:czwer/dubbo.git中dubbo_cat版本：
-    1.从clone的dubbo分支中创建新分支：
-        git checkout -b dubbo_cat
-    2.增加Cat依赖jar包,在dubbo根pom.xml和dubbo-rpc-api的pom.xml
-        &lt;dependency&gt;
-            &lt;groupId&gt;com.dianping.cat&lt;/groupId&gt;
-            &lt;artifactId&gt;cat-core&lt;/artifactId&gt;
-            &lt;version&gt;1.3.3&lt;/version&gt;
-        &lt;/dependency&gt;
-    3.代码导入IDEA，修改dubbo源代码，嵌入Cat的Transaction，以便收集统计信息。涉及到的类有，
-    具体参：git@github.com:czwer/dubbo.git的dubbo_cat版本（是参考前公司架构师修改代码的方式）:
-        a.AbstractInvoker
-        b.AbstractProxyInvoker
-    4.修改版本号(含子模块的版本号，通过IDEA全局替换.xml文件中的):
-        2.5.4_cat-SNAPSHOT
-    5.在dubbo根pom.xml添加：
-        &lt;parent&gt;
-            &lt;groupId&gt;com.xxx&lt;/groupId&gt;
-            &lt;artifactId&gt;xxx-parent&lt;/artifactId&gt;
-            &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
-        &lt;/parent&gt;
-    6.发布到Nexus仓库中，以后其他项目就可以引用了,在根目录的dubbo子模块中执行:
-        mvn deploy -N
-</code></pre><p>10.Cat应用监控平台部署（支持集群，开发环境暂部署了一台）</p>
-<pre><code>CAT基于Java开发的实时应用监控平台，包括实时应用监控，业务监控。
- 源码：https://github.com/dianping/cat
- 文档：源码中包含《Dianping Cat安装说明文档》
-     1.下载源码：
-         git clone https://github.com/dianping/cat.git
-     2.编译源码（JDK1.7编译；如网络原因导致本地仓库获得不到中央仓库jar，可以选择手动上传）：
-         git checkout mvn-repo
-         cp -R * ~/.m2/repository
-         git checkout master
-         mv clean install -DskipTests
-     3.在服务器上创建部署目录：
-         mkdir -p /xxx/xxx/cat
-     4.把本地编译的上传到服务器上：
-         sftp -oPort=22 xxxx@xxx.xxx.xxx.xxx
-         cd /xxx/xxx/cat
-         put /xxx/cat/cat-/xxx/target/cat-alpha-1.3.6.war 
-     5.解压并移除原来的war包：
-         jar -xvf cat-alpha-1.3.6.war
-     6.创建表和配置文件，以下为手动方式：
-         a.拷贝cat源码下script中datasources.xml，client.xml,server.xml到/data/appdatas/cat
-         b.数据库连接与密码：datasources.xml
-         c.执行SQL(原sql注意检查是否都执行成功，原执行时发现字段类型不能有两个字段同时为timestamp)：Cat.sql
-         d.修改server.xml(主要是修改IP与端口号,IP请不要携带http)
-     7.部署到tomcat
-         http://xxx.xxx.xxx.xxx:8080/cat/r
-         账号：catadmin
-         密码：catadmin
-     8.修盖配置：
-         选择 配置--&gt;全局警告配置--&gt;客户端路由
-</code></pre><p>11.搭建example-service服务，接入Dubbo,Cat</p>
-<pre><code>搭建的服务为maven工程，示例见:git@github.com:czwer/example-service.git.
-步骤如下：
-    1.IDEA中创建Maven项目
-    2.引入dubbo的jar，版本为我们修改过后放在私服的（2.5.4_cat-SNAPSHOT），注意排除spring的间接依赖。
-    3.引入cat的jar
-    4.收集异常日志，在log4j.properties加入
-        log4j.rootCategory=INFO,app,stdout,cat（新增cat）
-        log4j.appender.cat=com.dianping.cat.log4j.CatAppender
-    5.如需收集url调用情况，在web.xml中增加如下配置
-        &lt;!-- cat filter--&gt;
-            &lt;filter&gt;
-                &lt;filter-name&gt;cat-filter&lt;/filter-name&gt;
-                &lt;filter-class&gt;com.dianping.cat.servlet.CatFilter&lt;/filter-class&gt;
-            &lt;/filter&gt;
-            &lt;filter-mapping&gt;
-                &lt;filter-name&gt;cat-filter&lt;/filter-name&gt;
-                &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-                &lt;dispatcher&gt;REQUEST&lt;/dispatcher&gt;
-                &lt;dispatcher&gt;FORWARD&lt;/dispatcher&gt;
-            &lt;/filter-mapping&gt;
-    6.dao监控
-        &lt;!-- 创建SqlSessionFactory，同时指定数据源 --&gt;
-        &lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
-            &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
-            &lt;property name=&quot;plugins&quot;&gt;
-                &lt;array&gt;
-                    &lt;bean class=&quot;com.example.dal.CatSelectInterceptor&quot;/&gt;
-                &lt;/array&gt;
-            &lt;/property&gt;
-        &lt;/bean&gt;
-    7.在publish工程的resources目录中加入META-INF文件，里面增加app.properties, 内容为app.name=应用名称(
-    如exmaple-service)
-    8.在应用所在的服务器中创建/data/appdatas/cat增加client.xml文件，里面配置cat-server的地址。具体配置指向服务器
-    地址与端口。
-</code></pre><p>以上感谢前公司的架构师（法师），给公司引入这么好的框架，以上经验大部分从他那里学习到的。也感谢部署期间泉兄提供的帮助。以上部署时也遇到了一些问题，通过网络最终解决，感谢分享经验的人。</p>
+<ul>
+<li>官网：<a href="http://nexus.sonatype.org/downloads/" target="_blank" rel="external">http://nexus.sonatype.org/downloads/</a></li>
+<li>Nexus私服作为公司内部仓库，依赖外部和公司内部编译的jar，都会发布到私服中。方便其他项目引用。</li>
+<li>安装步骤如下：    <ol>
+<li>创建存放的目录<br>mkdir -p /xxx/xxx/nexus</li>
+<li>下载nexus安装包<br>wget <a href="https://sonatype-download.global.ssl.fastly.net/nexus/oss/nexus-2.14.0-01-bundle.tar.gz" target="_blank" rel="external">https://sonatype-download.global.ssl.fastly.net/nexus/oss/nexus-2.14.0-01-bundle.tar.gz</a></li>
+<li>解压：<br>tar zxvf nexus-2.14.0-01-bundle.tar.gz -C /xxx/xxx/nexus</li>
+<li>切到nexus目录的bin下：<br>cd /xxx/xxx/nexus/nexus-2.14.0-01/bin/</li>
+<li>启动/停止nexus(自带jetty,使用jetty启动)：<br>启动：./nexus start<br>停止：./nexus stop</li>
+<li>登录的初始账号密码：admin/admin123</li>
+</ol>
+</li>
+</ul>
+<p>5.创建所有Maven工程的公共父pom.xml</p>
+<ul>
+<li>方便共同属性在所有项目共用以及构件发布的配置，参：git@github.com:czwer/maven_config.git中的pom.xml：<ol>
+<li>以下需修改：<br>  groupId<br>   artifactId<br>   name<br>   涉及到的IP<br>   JDK版本视公司环境不同自行修改</li>
+<li>修改完成后执行以下命令发布到私服(推荐把pom.xml放在新建的空文件夹中执行)<br>mvn deploy -N</li>
+<li>使用时，把以下放在项目根pom.xml： <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;parent&gt;</div><div class="line">	&lt;groupId&gt;com.xxx&lt;/groupId&gt;</div><div class="line">	&lt;artifactId&gt;xxx-parent&lt;/artifactId&gt;</div><div class="line">	&lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;</div><div class="line">&lt;/parent&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<p>6.Zookeeper伪集群搭建（仅限开发测试环境部署）：</p>
+<ul>
+<li>官网：<a href="http://zookeeper.apache.org/" target="_blank" rel="external">http://zookeeper.apache.org/</a></li>
+<li>ZooKeeper为分布式应用提供了高效且可靠的分布式协调服务，提供了诸如统一命名服务，配置管理和分布式锁等分布式的基础服务。在这里我们因使用Dubbo作为分布式服务框架，而Dubbo需要注册中心，Zookeeper在这里担任的就是注册中心的角色。</li>
+<li><p>安装步骤如下：</p>
+<ol>
+<li>创建存放的目录<br>mkdir -p /xxx/xxx/zookeeper</li>
+<li>下载安装包<br>wget <a href="http://www.apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz" target="_blank" rel="external">http://www.apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz</a></li>
+<li>解压：<br>tar zxvf zookeeper-3.4.6.tar.gz -C /xxx/xxx/zookeeper</li>
+<li>创建快照文件的目录：<br>mkdir -p /xxx/xxx/zookeeper/data/zk1<br>mkdir -p /xxx/xxx/zookeeper/data/zk2<br>mkdir -p /xxx/xxx/zookeeper/data/zk3</li>
+<li>创建myid文件<br>echo “1” &gt; /xxx/xxx/zookeeper/data/zk1/myid<br>echo “2” &gt; /xxx/xxx/zookeeper/data/zk2/myid<br>echo “3” &gt; /xxx/xxx/zookeeper/data/zk3/myid</li>
+<li><p>修改配置文件/xxx/xxx/zookeeper/zookeeper-3.4.6/conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">cp zoo_sample.cfg zoo1.cfg</div><div class="line">cp zoo_sample.cfg zoo2.cfg</div><div class="line">cp zoo_sample.cfg zoo3.cfg</div><div class="line">修改zoo1.cfg：</div><div class="line">	dataDir=/xxx/xxx/zookeeper/data/zk1</div><div class="line">	dataLogDir=/xxx/xxx/logs/zookeeper/zk1</div><div class="line">	clientPort=2181</div><div class="line">	server.1=localhost:2888:3888</div><div class="line">	server.2=localhost:2889:3889</div><div class="line">	server.3=localhost:2890:3890</div><div class="line">修改zoo2.cfg：</div><div class="line">	dataDir=/xxx/xxx/zookeeper/data/zk2</div><div class="line">	dataLogDir=/xxx/xxx/logs/zookeeper/zk2</div><div class="line">	clientPort=2182</div><div class="line">	server.1=localhost:2888:3888</div><div class="line">	server.2=localhost:2889:3889</div><div class="line">	server.3=localhost:2890:3890</div><div class="line">修改zoo3.cfg：</div><div class="line">	dataDir=/xxx/xxx/zookeeper/data/zk3</div><div class="line">	dataLogDir=/xxx/xxx/logs/zookeeper/zk3</div><div class="line">	clientPort=2183</div><div class="line">	server.1=localhost:2888:3888</div><div class="line">	server.2=localhost:2889:3889</div><div class="line">	server.3=localhost:2890:3890</div></pre></td></tr></table></figure>
+</li>
+<li><p>启动与停止</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">启动：</div><div class="line">	./zkServer.sh  start /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo1.cfg</div><div class="line">	./zkServer.sh  start /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo2.cfg</div><div class="line">	./zkServer.sh  start /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo3.cfg</div><div class="line">停止：</div><div class="line">	./zkServer.sh stop /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo1.cfg</div><div class="line">	./zkServer.sh stop /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo2.cfg</div><div class="line">	./zkServer.sh stop /xxx/xxx/zookeeper/zookeeper-3.4.6/conf/zoo3.cfg</div></pre></td></tr></table></figure>
+</li>
+<li><p>验证是否部署成功<br>telnet xxx.xxx.xxx.xxx 2181<br>telnet xxx.xxx.xxx.xxx 2182<br>telnet xxx.xxx.xxx.xxx 2183    </p>
+</li>
+</ol>
+</li>
+</ul>
+<p>7.部署Tomcat</p>
+<ul>
+<li>官网：<a href="http://tomcat.apache.org/" target="_blank" rel="external">http://tomcat.apache.org/</a></li>
+<li>安装过程如下：</li>
+</ul>
+<ol>
+<li>创建安装目录<br> mkdir -p /xxx/xxx/tomcat</li>
+<li>获取tomcat安装包<br> wget <a href="http://mirrors.hust.edu.cn/apache/tomcat/tomcat-7/v7.0.73/bin/apache-tomcat-7.0.73.tar.gz" target="_blank" rel="external">http://mirrors.hust.edu.cn/apache/tomcat/tomcat-7/v7.0.73/bin/apache-tomcat-7.0.73.tar.gz</a></li>
+<li>解压<br>tar zxvf apache-tomcat-7.0.73.tar.gz -C /xxx/xxx/tomcat</li>
+</ol>
+<p>8.Dubbo服务治理中心搭建</p>
+<ul>
+<li>官网：<a href="http://dubbo.io/" target="_blank" rel="external">http://dubbo.io/</a></li>
+<li>源代码：<a href="https://github.com/alibaba/dubbo" target="_blank" rel="external">https://github.com/alibaba/dubbo</a></li>
+<li><p>安装过程如下：</p>
+<ol>
+<li>下载dubbo源代码到开发者机器上<br>git clone <a href="https://github.com/alibaba/dubbo.git" target="_blank" rel="external">https://github.com/alibaba/dubbo.git</a></li>
+<li>编译源代码并打war包（强烈推荐JDK1.7环境），编译需要花些时间，要有耐心耐心（可以把本地settings.xml临时修改为指向：<a href="http://maven.aliyun.com/nexus" target="_blank" rel="external">http://maven.aliyun.com/nexus</a> 以节省时间）：<br>mvn eclipse:eclipse<br>mvn clean install -Dmaven.test.skip</li>
+<li>在部署的服务器上创建dubbo部署目录：<br>mkdir -p /xxx/xxx/dubbo-admin</li>
+<li>上传代码dubbo-admin到服务器上：<br>sftp -oPort=22 abc@xxx.xxx.xxx.xxx<br>输入密码：xxxxxx<br>put /xxx/dubbo/dubbo-admin/target/dubbo-admin-2.5.4-SNAPSHOT.war /xxx/xxx/dubbo-admin</li>
+<li>解压并删除原war包<br>jar -xvf dubbo-admin-2.5.4-SNAPSHOT.war<br>mv dubbo-admin-2.5.4-SNAPSHOT.war /xxx/xxx/temp/</li>
+<li>修改配置文件dubbo-admin/WEB-INF/dubbo.properties(其中xxx.xxx.xxx.xxx为zookeeper部署地址)：<br>dubbo.registry.address=zookeeper://xxx.xxx.xxx.xxx:2181?backup= xxx.xxx.xxx.xxx:2182,xxx.xxx.xxx.xxx:2183</li>
+<li><p>修改日志位置:/xxx/xxx/dubbo-admin/WEB-INF/log4j.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;param name=&quot;file&quot; value=&quot;/xxx/xxx/logs/dubbo/admin/dubbo-governance.log&quot; /&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>部署到tomcat中，添加配置，在/xxx/xxx/tomcat/apache-tomcat-7.0.72/conf/server.xml的<host>中添加</host></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;Context path=&quot;/dubboAdmin&quot;</div><div class="line">     	docBase=&quot;/xxx/xxx/dubbo-admin/&quot;</div><div class="line">     	crossContext=&quot;true&quot;</div><div class="line">     	reloadable=&quot;false&quot;</div><div class="line">     	debug=&quot;0&quot;/&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>启动tomcat</p>
+</li>
+<li>访问首页：<br>访问地址：<a href="http://xxx.xxx.xxx.xxx:8080/dubboAdmin/index.html" target="_blank" rel="external">http://xxx.xxx.xxx.xxx:8080/dubboAdmin/index.html</a><br>账号/密码：root/root             </li>
+</ol>
+</li>
+</ul>
+<p>9.Dubbo接入Cat</p>
+<ul>
+<li>接入的原理就是在Dubbo中接入Cat的Transaction。</li>
+<li><p>具体步骤如下,代码参：git@github.com:czwer/dubbo.git中dubbo_cat版本：</p>
+<ol>
+<li>从clone的dubbo分支中创建新分支：<br>git checkout -b dubbo_cat</li>
+<li><p>增加Cat依赖jar包,在dubbo根pom.xml和dubbo-rpc-api的pom.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">	&lt;groupId&gt;com.dianping.cat&lt;/groupId&gt;</div><div class="line">	&lt;artifactId&gt;cat-core&lt;/artifactId&gt;</div><div class="line">	&lt;version&gt;1.3.3&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>.代码导入IDEA，修改dubbo源代码，嵌入Cat的Transaction，以便收集统计信息。涉及到的类有,具体参：git@github.com:czwer/dubbo.git的dubbo_cat版本（是参考前公司架构师修改代码的方式）:<br>AbstractInvoker<br>AbstractProxyInvoker</p>
+</li>
+<li>修改版本号(含子模块的版本号，通过IDEA全局替换.xml文件中的):<br>2.5.4_cat-SNAPSHOT</li>
+<li><p>在dubbo根pom.xml添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;parent&gt;</div><div class="line">	&lt;groupId&gt;com.xxx&lt;/groupId&gt;</div><div class="line">	&lt;artifactId&gt;xxx-parent&lt;/artifactId&gt;</div><div class="line">	&lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;</div><div class="line">&lt;/parent&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>发布到Nexus仓库中，以后其他项目就可以引用了,在根目录的dubbo子模块中执行:<br>mvn deploy -N</p>
+</li>
+</ol>
+</li>
+</ul>
+<p>10.Cat应用监控平台部署（支持集群，开发环境暂部署了一台）</p>
+<ul>
+<li>CAT基于Java开发的实时应用监控平台，包括实时应用监控，业务监控。</li>
+<li>源码：<a href="https://github.com/dianping/cat" target="_blank" rel="external">https://github.com/dianping/cat</a></li>
+<li>文档：源码中包含《Dianping Cat安装说明文档》</li>
+<li><p>安装过程如下：</p>
+<ol>
+<li>下载源码：<br>git clone <a href="https://github.com/dianping/cat.git" target="_blank" rel="external">https://github.com/dianping/cat.git</a></li>
+<li>编译源码（JDK1.7编译；如网络原因导致本地仓库获得不到中央仓库jar，可以选择手动上传）：<br>git checkout mvn-repo<br>cp -R * ~/.m2/repository<br>git checkout master<br>mv clean install -DskipTests</li>
+<li>在服务器上创建部署目录：<br>mkdir -p /xxx/xxx/cat</li>
+<li>把本地编译的上传到服务器上：<br>sftp -oPort=22 xxxx@xxx.xxx.xxx.xxx<br>cd /xxx/xxx/cat<br>put /xxx/cat/cat-/xxx/target/cat-alpha-1.3.6.war</li>
+<li>解压并移除原来的war包：<br>jar -xvf cat-alpha-1.3.6.war</li>
+<li><p>创建表和配置文件，以下为手动方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">a.拷贝cat源码下script中datasources.xml，client.xml,server.xml到/data/appdatas/cat</div><div class="line">b.数据库连接与密码：datasources.xml</div><div class="line">c.执行SQL(原sql注意检查是否都执行成功，原执行时发现字段类型不能有两个字段同时为timestamp)：Cat.sql</div><div class="line">d.修改server.xml(主要是修改IP与端口号,IP请不要携带http)</div></pre></td></tr></table></figure>
+</li>
+<li><p>部署到tomcat，并访问：<br><a href="http://xxx.xxx.xxx.xxx:8080/cat/r" target="_blank" rel="external">http://xxx.xxx.xxx.xxx:8080/cat/r</a><br>账号/密码：catadmin/catadmin</p>
+</li>
+<li>修盖配置：<br>选择 配置–&gt;全局警告配置–&gt;客户端路由</li>
+</ol>
+</li>
+</ul>
+<p>11.搭建example-service服务，接入Dubbo,Cat</p>
+<ul>
+<li>搭建的服务为maven工程，示例见:git@github.com:czwer/example-service.git.</li>
+<li><p>步骤如下：</p>
+<ol>
+<li>IDEA中创建Maven项目</li>
+<li>引入dubbo的jar，版本为我们修改过后放在私服的（2.5.4_cat-SNAPSHOT），注意排除spring的间接依赖。</li>
+<li>引入cat的jar</li>
+<li>收集异常日志，在log4j.properties加入<br>log4j.rootCategory=INFO,app,stdout,cat（新增cat）<br>log4j.appender.cat=com.dianping.cat.log4j.CatAppender</li>
+<li><p>如需收集url调用情况，在web.xml中增加如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;!-- cat filter--&gt;</div><div class="line">&lt;filter&gt;</div><div class="line">	&lt;filter-name&gt;cat-filter&lt;/filter-name&gt;</div><div class="line">	&lt;filter-class&gt;com.dianping.cat.servlet.CatFilter&lt;/filter-class&gt;</div><div class="line">&lt;/filter&gt;</div><div class="line">&lt;filter-mapping&gt;</div><div class="line">	&lt;filter-name&gt;cat-filter&lt;/filter-name&gt;</div><div class="line">	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;</div><div class="line">	&lt;dispatcher&gt;REQUEST&lt;/dispatcher&gt;</div><div class="line">	&lt;dispatcher&gt;FORWARD&lt;/dispatcher&gt;</div><div class="line">&lt;/filter-mapping&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>dao监控</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> &lt;!-- 创建SqlSessionFactory，同时指定数据源 --&gt;</div><div class="line">&lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;</div><div class="line">	&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">	&lt;property name=&quot;plugins&quot;&gt;</div><div class="line">		&lt;array&gt;</div><div class="line">			&lt;bean class=&quot;com.example.dal.CatSelectInterceptor&quot;/&gt;</div><div class="line">		&lt;/array&gt;</div><div class="line">	&lt;/property&gt;</div><div class="line">&lt;/bean&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在publish工程的resources目录中加入META-INF文件，里面增加app.properties, 内容为app.name=应用名称(如exmaple-service)</p>
+</li>
+<li>在应用所在的服务器中创建/data/appdatas/cat增加client.xml文件，里面配置cat-server的地址。具体配置指向服务器地址与端口。</li>
+</ol>
+</li>
+</ul>
+<p>以上感谢前公司的架构师（法师），给公司引入这么好的框架，以上经验大部分从他那里学习到的。也感谢部署期间泉兄提供的帮助。以上部署时也遇到了一些问题，通过网络最终解决，感谢分享经验的人。</p>
 <p>参考：</p>
 <ol>
 <li>zookeeper伪集群部署：<a href="https://my.oschina.net/vbird/blog/384043" target="_blank" rel="external">https://my.oschina.net/vbird/blog/384043</a></li>
@@ -279,4 +197,4 @@
 <li>cat编译参：<a href="http://www.cnblogs.com/yjmyzz/archive/2016/03/30/dianping-cat-deploy-tutorial.html" target="_blank" rel="external">http://www.cnblogs.com/yjmyzz/archive/2016/03/30/dianping-cat-deploy-tutorial.html</a></li>
 <li>cat部署因多写了server.xml多写了http：<a href="https://www.oschina.net/question/584441_2203579" target="_blank" rel="external">https://www.oschina.net/question/584441_2203579</a></li>
 </ol>
-</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/11/16/Dubbo+Cat分布式服务搭建/" data-id="ciw01e0ut000194uya7hvjzoi" class="article-share-link">Aktie</a><div class="tags"><a href="/tags/基础设施/">基础设施</a></div><div class="post-nav"><a href="/2016/11/25/项目Git-Maven化总结/" class="pre">项目Git+Maven化总结</a><a href="/2016/11/07/BQConf-24见闻/" class="next">BQConf-24见闻</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/基础设施/" style="font-size: 15px;">基础设施</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/11/25/项目Git-Maven化总结/">项目Git+Maven化总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/16/Dubbo+Cat分布式服务搭建/">Dubbo+Cat分布式服务搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/07/BQConf-24见闻/">BQConf-24见闻</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/06/博客诞生记/">博客诞生记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/06/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="http://goldymark.coding.me/" title="GoldyMark" target="_blank">GoldyMark</a><ul></ul><a href="http://www.bjdp.org/" title="BJDP" target="_blank">BJDP</a><ul></ul><a href="http://tech.meituan.com/" title="美团点评技术团队博客" target="_blank">美团点评技术团队博客</a><ul></ul><a href="http://www.ibm.com/developerworks/cn/" title="IBM技术博客" target="_blank">IBM技术博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">Java工匠.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/11/16/Dubbo+Cat分布式服务搭建/" data-id="ciw0214bf00019wuy793lhx9b" class="article-share-link">Share</a><div class="tags"><a href="/tags/基础设施/">基础设施</a></div><div class="post-nav"><a href="/2016/11/25/项目Git-Maven化总结/" class="pre">项目Git+Maven化总结</a><a href="/2016/11/07/BQConf-24见闻/" class="next">BQConf-24见闻</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/基础设施/" style="font-size: 15px;">基础设施</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/11/25/项目Git-Maven化总结/">项目Git+Maven化总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/16/Dubbo+Cat分布式服务搭建/">Dubbo+Cat分布式服务搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/07/BQConf-24见闻/">BQConf-24见闻</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/06/博客诞生记/">博客诞生记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/06/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="http://goldymark.coding.me/" title="GoldyMark" target="_blank">GoldyMark</a><ul></ul><a href="http://www.bjdp.org/" title="BJDP" target="_blank">BJDP</a><ul></ul><a href="http://tech.meituan.com/" title="美团点评技术团队博客" target="_blank">美团点评技术团队博客</a><ul></ul><a href="http://www.ibm.com/developerworks/cn/" title="IBM技术博客" target="_blank">IBM技术博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">Java工匠.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
