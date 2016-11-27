@@ -1,68 +1,65 @@
 <!DOCTYPE html><html lang="null"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="专注Java后端"><title>项目Git+Maven化总结 | Java工匠</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">项目Git+Maven化总结</h1><a id="logo" href="/.">Java工匠</a><p class="description">编码让世界变得更美好</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Start</i></a><a href="/archives/"><i class="fa fa-archive"> Archiv</i></a><a href="/about/"><i class="fa fa-user"> Über</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">项目Git+Maven化总结</h1><div class="post-meta">Nov 25, 2016<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><p>公司原Java项目历史悠长，使用的版本管理为Svn，且尚未Maven化。为了后续提高开发效率，及持续集成，就和同事一起负责把项目进行Git+Maven化（个人负责Maven化）。期间也涉及到Java代码由GBK转UTF-8的过程（原项目混合GBK和UTF-8），统一了项目的编码。<br>实施过程如下（含Svn转Git）：</p>
 <p>一. Svn转Git管理</p>
-<pre><code>1.进入xxx项目根路径，删除隐藏文件.svn
-    rm -rf .svn
-2.git初始化管理
-    git init
-3.在gitLib中创建远程仓库
-4.项目创建.gitignore文件，描述git管理忽略的文件
-    .idea/
-    .project
-    *.iml
-    target/
-    .settings/
-5.本地git项目关联远程仓库,至此Svn转Git结束
-    git remote add origin https://xxx.gitlab.com/java/xxx.git
-    git add .
-    git commit -m &quot;项目初始化&quot;
-    git push -u origin master               
-</code></pre><p>二.Maven化（请保证外网与局域网的网络良好）</p>
-<pre><code>1. 在项目根路径下创建pom.xml文件，用于添加项目依赖的jar
-2. 在pom.xml中逐一添加jar引用：
-    (a).在中央仓库：http://mvnrepository.com/或阿里Maven私服：http://maven.aliyun.com/nexus/根据jar名称搜索
-    获得具体maven坐标，并拷贝到pom.xml中。如存不同组织相同名称的jar。可以使用以下命令查看jar内容，根据类路径进一步判断：
-        jar -tf xxx.jar
-    (b).如果项目引用的jar在中央仓库中未找到，需要把该jar手动上传到Nexus私服,然后再添加到pom.xml中。 
-3.把现在WEB-INF下的lib目录移除到项目外
-4.检查现在项目结构是否为标准Maven项目目录结构，如果不是创建目录，然后移动原目录或文件；
-5.现在的项目进行构建，看是否能够编译成功：如编译失败可能jar依赖有遗留，添加后，反复执行，直至成功编译
-6.检查项目中jar包是否存在版本依赖冲突，如存在使用exclusion进行排除冲突：
-    mvn dependency:tree -Dverbose | grep &quot;omitted for conflict with&quot;
-7.查看target中生成编译后的lib目录与项目外的lib是否相同，肉眼核实一遍，然后删除项目外的lib。
-8.启动项目，随机验证项目功能是否可以正常使用，Maven化至此也完成：
-    (a).项目首先使用的jetty尝试运行，发现jetty运行报web.xml中使用servlet的找不到，经检查确实不存在，而原来tomcat
-    运行正常，可见tomcat对类的启动过程没有校验是否存在（具体机制后续学习）；
-    (b).jetty启动后，发现布局乱掉，具体原因尚未找到。后转maven的tomcat插件运行，正常使用（经Fiddler抓包发现，有收到
-    js，但在浏览器中查看为空---现未解决，留在在后面有时间处理）。
-</code></pre><p>三. Java代码由GBK-&gt;UTF-8</p>
+<ol>
+<li><p>进入xxx项目根路径，删除隐藏文件.svn</p>
+<p> rm -rf .svn</p>
+</li>
+<li><p>git初始化管理</p>
+<p> git init</p>
+</li>
+<li><p>在gitLib中创建远程仓库</p>
+</li>
+<li><p>项目创建.gitignore文件，描述git管理忽略的文件</p>
+<pre><code>.idea/
+.project
+*.iml
+target/
+.settings/
+</code></pre></li>
+<li><p>本地git项目关联远程仓库,至此Svn转Git结束</p>
+<pre><code>git remote add origin https://xxx.gitlab.com/java/xxx.git
+git add .
+git commit -m &quot;项目初始化&quot;
+git push -u origin master    
+</code></pre></li>
+</ol>
+<p>二.Maven化（请保证外网与局域网的网络良好）</p>
+<ol>
+<li>在项目根路径下创建pom.xml文件，用于添加项目依赖的jar</li>
+<li><p>在pom.xml中逐一添加jar引用：</p>
+<p>  (a).在中央仓库：<a href="http://mvnrepository.com/" target="_blank" rel="external">http://mvnrepository.com/</a> 或阿里Maven私服：<a href="http://maven.aliyun.com/nexus/" target="_blank" rel="external">http://maven.aliyun.com/nexus/</a> 根据jar名称搜索获得具体maven坐标，并拷贝到pom.xml中。如存不同组织相同名称的jar。可以使用以下命令查看jar内容，根据类路径进一步判断：</p>
+<pre><code>jar -tf xxx.jar
+</code></pre><p>  (b).如果项目引用的jar在中央仓库中未找到，需要把该jar手动上传到Nexus私服,然后再添加到pom.xml中。 </p>
+</li>
+<li>把现在WEB-INF下的lib目录移除到项目外</li>
+<li>检查现在项目结构是否为标准Maven项目目录结构，如果不是创建目录，然后移动原目录或文件；</li>
+<li>现在的项目进行构建，看是否能够编译成功：如编译失败可能jar依赖有遗留，添加后，反复执行，直至成功编译</li>
+<li>检查项目中jar包是否存在版本依赖冲突，如存在使用exclusion进行排除冲突：<br>  mvn dependency:tree -Dverbose | grep “omitted for conflict with”</li>
+<li>查看target中生成编译后的lib目录与项目外的lib是否相同，肉眼核实一遍，然后删除项目外的lib。</li>
+<li><p>启动项目，随机验证项目功能是否可以正常使用，Maven化至此也完成：</p>
+<p>  (a).项目首先使用的jetty尝试运行，发现jetty运行报web.xml中使用servlet的找不到，经检查确实不存在，而原来tomcat运行正常，可见tomcat对类的启动过程没有校验是否存在（具体机制后续学习）；<br>  (b).jetty启动后，发现布局乱掉，具体原因尚未找到。后转maven的tomcat插件运行，正常使用（经Fiddler抓包发现，有收到js，但在浏览器中查看为空—现未解决，留在在后面有时间处理）。</p>
+</li>
+</ol>
+<p>三. Java代码由GBK-&gt;UTF-8</p>
 <pre><code>文件编码识别推荐以下两款开源软件（不保证百分百正确，需自己核实结果的正确性）：
     (a).juniversalchardet：https://github.com/thkoch2001/juniversalchardet
     (b).jchardet：http://jchardet.sourceforge.net/
 以上识别的结果，再结合IDEA文件显示的编码进行验证确认。
 </code></pre><p>四. 项目提测与团队推广</p>
-<pre><code>1.项目代码申请全面回归测试
-2.团队内推广Git+Maven+IDEA使用（见上篇Dubbo+Cat分布式服务搭建中可找到相关学习资料）。团队推广是发现各种奇葩问题：
-    (a).推荐项目Maven在IDEA中的配置，使用maven安装路径conf的setting.xml,及当前用户下.m2本地库---部分同学工具编译
-    与命令编译环境一致，避免不必要的麻烦
-    (b).Windows安装JDK与Jre的安装比较独立，请格外注意，保证两者都要安装，Mac不需要关心Jre的问题
-    (c).Window默认编码为GBK，Mac为UTF-8，而我们项目为UTF-8，如果在pom.xml中未指定编码可能某些类会在Windows编译不
-    通过,Mac正常。---推荐设定编码
-    (d).有的是IDEA问题：旧版本的IDEA可能需要额外配置参数（如Maven编码），新版本可以直接使用---推荐使用最新版本；
-    (e).曾遇到某个类找不到竟然是jar冲突导致---推荐检查项目中jar包是否存在版本依赖冲突(如二.6所述，这一条是补加的)
-    (f).Maven使用中总是报某个类找不到，后重装Maven竟然好了（太神奇了）
-    (g).现公司网路实在太差了，有时在Maven编译时，总是下不到依赖的jar，只能手动一个个下载上传到本地私服。---强烈建议
-    有个好的网络，珍惜生命
-3.发现团队内用到的工具统一版本，很有必要，否则可能在我的机器正常，在你的机器上就运行不起来，现在约定了以下开发工具的使用
-版本：
-    JDK：1.7.0_79（想推荐Java8，考虑到影响范围广，暂不升级）
-    IDEA：&gt;=2016.2(发现最新的2016.3社区版，使用中又有点小惊喜)
-    Git：&gt;= 2.3.8
-    Maven：3.3.9
-</code></pre><p>参：</p>
+<ol>
+<li>项目代码申请全面回归测试</li>
+<li><p>团队内推广Git+Maven+IDEA使用（见上篇Dubbo+Cat分布式服务搭建中可找到相关学习资料）。团队推广是发现各种奇葩问题：    </p>
+<p>  (a).推荐项目Maven在IDEA中的配置，使用maven安装路径conf的setting.xml,及当前用户下.m2本地库—部分同学工具编译与命令编译环境一致，避免不必要的麻烦<br>  (b).Windows安装JDK与Jre的安装比较独立，请格外注意，保证两者都要安装，Mac不需要关心Jre的问题<br>  (c).Window默认编码为GBK，Mac为UTF-8，而我们项目为UTF-8，如果在pom.xml中未指定编码可能某些类会在Windows编译不通过,Mac正常。—推荐设定编码<br>  (d).有的是IDEA问题：旧版本的IDEA可能需要额外配置参数（如Maven编码），新版本可以直接使用—推荐使用最新版本；<br>  (e).曾遇到某个类找不到竟然是jar冲突导致—推荐检查项目中jar包是否存在版本依赖冲突(如二.6所述，这一条是补加的)<br>  (f).Maven使用中总是报某个类找不到，后重装Maven竟然好了（太神奇了）<br>  (g).现公司网路实在太差了，有时在Maven编译时，总是下不到依赖的jar，只能手动一个个下载上传到本地私服。—强烈建议有个好的网络，珍惜生命</p>
+</li>
+<li><p>发现团队内用到的工具统一版本，很有必要，否则可能在我的机器正常，在你的机器上就运行不起来，现在约定了以下开发工具的使用版本:    </p>
+<p>  JDK：1.7.0_79（想推荐Java8，考虑到影响范围广，暂不升级）<br>  IDEA：&gt;=2016.2(发现最新的2016.3社区版，使用中又有点小惊喜)<br>  Git：&gt;= 2.3.8<br>  Maven：3.3.9</p>
+</li>
+</ol>
+<p>参：</p>
 <ol>
 <li>中央仓库Web访问：<a href="http://mvnrepository.com/" target="_blank" rel="external">http://mvnrepository.com/</a></li>
 <li>阿里Maven私服Web访问：<a href="http://maven.aliyun.com/nexus/" target="_blank" rel="external">http://maven.aliyun.com/nexus/</a></li>
 <li>MavenFilteringException找不到：<a href="https://my.oschina.net/u/584441/blog/793356" target="_blank" rel="external">https://my.oschina.net/u/584441/blog/793356</a></li>
 <li>Maven:Perhaps you are running on a JRE rather than a JDK：<a href="https://my.oschina.net/u/584441/blog/794562" target="_blank" rel="external">https://my.oschina.net/u/584441/blog/794562</a></li>
 </ol>
-</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/11/25/项目Git-Maven化总结/" data-id="ciw00uhkr000265uy2ol9qz9f" class="article-share-link">Aktie</a><div class="tags"><a href="/tags/基础设施/">基础设施</a></div><div class="post-nav"><a href="/2016/11/16/Dubbo+Cat分布式服务搭建/" class="next">Dubbo+Cat分布式服务搭建</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/基础设施/" style="font-size: 15px;">基础设施</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/11/25/项目Git-Maven化总结/">项目Git+Maven化总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/16/Dubbo+Cat分布式服务搭建/">Dubbo+Cat分布式服务搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/07/BQConf-24见闻/">BQConf-24见闻</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/06/博客诞生记/">博客诞生记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/06/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="http://goldymark.coding.me/" title="GoldyMark" target="_blank">GoldyMark</a><ul></ul><a href="http://www.bjdp.org/" title="BJDP" target="_blank">BJDP</a><ul></ul><a href="http://tech.meituan.com/" title="美团点评技术团队博客" target="_blank">美团点评技术团队博客</a><ul></ul><a href="http://www.ibm.com/developerworks/cn/" title="IBM技术博客" target="_blank">IBM技术博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">Java工匠.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/11/25/项目Git-Maven化总结/" data-id="ciw01e0uw000294uy3jcxwdvn" class="article-share-link">Aktie</a><div class="tags"><a href="/tags/基础设施/">基础设施</a></div><div class="post-nav"><a href="/2016/11/16/Dubbo+Cat分布式服务搭建/" class="next">Dubbo+Cat分布式服务搭建</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/基础设施/" style="font-size: 15px;">基础设施</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/11/25/项目Git-Maven化总结/">项目Git+Maven化总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/16/Dubbo+Cat分布式服务搭建/">Dubbo+Cat分布式服务搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/07/BQConf-24见闻/">BQConf-24见闻</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/06/博客诞生记/">博客诞生记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/06/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="http://goldymark.coding.me/" title="GoldyMark" target="_blank">GoldyMark</a><ul></ul><a href="http://www.bjdp.org/" title="BJDP" target="_blank">BJDP</a><ul></ul><a href="http://tech.meituan.com/" title="美团点评技术团队博客" target="_blank">美团点评技术团队博客</a><ul></ul><a href="http://www.ibm.com/developerworks/cn/" title="IBM技术博客" target="_blank">IBM技术博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">Java工匠.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
