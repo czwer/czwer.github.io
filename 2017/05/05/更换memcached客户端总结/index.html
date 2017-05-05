@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="null"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="专注Java后端"><title>更换memcached客户端总结 | Java工匠</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">更换memcached客户端总结</h1><a id="logo" href="/.">Java工匠</a><p class="description">编码让世界变得更美好</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/about.html"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">更换memcached客户端总结</h1><div class="post-meta">May 5, 2017<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><p><strong>背景</strong></p>
+<p>最近公司生产环境经常反映memcached存在连接异常：断掉连接后，导致应用挂掉。怀疑java-memcache-release的版本较老导致（版本2.6.6），准备更换下客户端。对比了以下三个客户端，最终选择了xmemcached作为memcached客户端（性能+文档全面）。</p>
+<table>
+<thead>
+<tr>
+<th>memcached客户端</th>
+<th>maven中央仓库引用数</th>
+<th>GitHub Star</th>
+<th>文档</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/gwhalin/Memcached-Java-Client" target="_blank" rel="external">java-memcache-release</a>（原来使用）</td>
+<td><a href="http://mvnrepository.com/artifact/com.whalin/Memcached-Java-Client" target="_blank" rel="external">10</a></td>
+<td>605</td>
+<td>简单描述</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/killme2008/xmemcached" target="_blank" rel="external">xmemcached</a> (更换为该客户端)</td>
+<td><a href="http://mvnrepository.com/artifact/com.googlecode.xmemcached/xmemcached" target="_blank" rel="external">36</a></td>
+<td>515</td>
+<td>文档全面</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/couchbase/spymemcached" target="_blank" rel="external">spymemcached</a></td>
+<td><a href="http://mvnrepository.com/search?q=spymemcached" target="_blank" rel="external">114</a></td>
+<td>107</td>
+<td>需vpn才能访问</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>问题处理</strong></p>
+<p>更换客户端后遇到了以下几个问题：</p>
+<ol>
+<li><p>使用xmemcached时，推荐使用二进制协议，如果使用文本协议，会存在如果缓存的非String对象存储后，获取时报类型转换异常：</p>
+<p><img src="../../../../picture/protocolProblem.jpeg" alt="类型转换异常"></p>
+</li>
+<li><p>在开始测试时原来java-memcache-release客户端在memcached中存储的数据还存在，新的客户端，获取时无法识别，解决办法，把现在memcached中缓存的数据flushAll()。然后大家使用统一的客户端(同事协助解决)：</p>
+<p><img src="../../../../picture/differentClient.jpeg" alt="不同客户端相互不兼容"></p>
+</li>
+<li><p>memcached对过期时间的设置分为两种情况：a).小于等于30天，设置过期的秒，如3天：3x24x60x60=259200（30天设置可以设置为0）；b).大于30天的只能使用Unix时间戳的形式，且仅支持到2038-01-19 11:14:07(因我们传递给过期时间是int类型，int类型最大值：2147483647，转换为时间戳就是这个时间)。当时未认识到该问题时，曾尝试设置365x24x60x60 = 31536000（对应时间1971-01-01 08:00:00），由于该时间已经过去，缓存时后数据就已过期，导致缓存无效，应用每次刷新页面都是读的数据库，缓存并未用上。考虑到为了避免以后到达2038年解时间戳问题问题，现使用默认最长30天的过期时间，其已满足项目需求。</p>
+<p><img src="../../../../picture/unixMaxTime.jpeg" alt="Unix时间戳支持的最大时间"></p>
+<p><img src="../../../../picture/oneYearExpired.jpeg" alt="错误的认为一年过期时间设置方式"> </p>
+</li>
+<li><p>连接池连接不够使用：原来设置的池中有5个连接遇到如下报错，问题二与三解决后，未再遇到。现修改池中为10个连接，后面持续跟进。</p>
+<p><img src="../../../../picture/noAvailableConnection.jpeg" alt="目前没有可用的连接"></p>
+</li>
+</ol>
+<p><strong>参考</strong></p>
+<ol>
+<li><a href="../../../../file/memcachedComprehensiveAnalysis.pdf">memcached全面剖析</a></li>
+<li><a href="https://github.com/killme2008/xmemcached/wiki/Xmemcached-%E4%B8%AD%E6%96%87%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97" target="_blank" rel="external">Xmemcached 中文用户指南</a></li>
+<li><a href="http://www.cnblogs.com/aishangyizhihu/p/4435407.html" target="_blank" rel="external">问题二：不同客户端相互不兼容</a>     </li>
+<li><a href="http://stackoverflow.com/questions/1418324/memcache-maximum-key-expiration-time" target="_blank" rel="external">问题三：memcache-maximum-key-expiration-time</a></li>
+<li><a href="http://www.cnblogs.com/chinaboyzzy/p/4597193.html" target="_blank" rel="external">时间戳介绍</a></li>
+<li><a href="http://tool.chinaz.com/Tools/unixtime.aspx" target="_blank" rel="external">时间戳在线转换</a></li>
+<li><a href="http://www.cnblogs.com/jeffwongishandsome/archive/2011/11/06/2238265.html" target="_blank" rel="external">Memcached常用命令及使用说明</a></li>
+<li><a href="http://www.cnblogs.com/Alight/p/3546400.html" target="_blank" rel="external">memcache stats命令详解</a></li>
+</ol>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2017/05/05/更换memcached客户端总结/" data-id="cj2c4f6t10008atuyoevgpz17" class="article-share-link">Share</a><div class="tags"><a href="/tags/缓存/">缓存</a></div><div class="post-nav"><a href="/2017/02/19/参与代码静修日活动/" class="next">参与代码静修日活动</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/活动/" style="font-size: 15px;">活动</a> <a href="/tags/基础设施/" style="font-size: 15px;">基础设施</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/05/05/更换memcached客户端总结/">更换memcached客户端总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/19/参与代码静修日活动/">参与代码静修日活动</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/18/Maven依赖问题处理/">Maven依赖问题处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/25/项目Git-Maven化总结/">项目Git+Maven化总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/16/Dubbo+Cat分布式服务搭建/">Dubbo+Cat分布式服务搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/07/BQConf-24见闻/">BQConf-24见闻</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/06/博客诞生记/">博客诞生记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/06/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="http://goldymark.coding.me/" title="GoldyMark" target="_blank">GoldyMark</a><ul></ul><a href="http://www.bjdp.org/" title="BJDP" target="_blank">BJDP</a><ul></ul><a href="http://tech.meituan.com/" title="美团点评技术团队博客" target="_blank">美团点评技术团队博客</a><ul></ul><a href="http://www.ibm.com/developerworks/cn/" title="IBM技术博客" target="_blank">IBM技术博客</a><ul></ul><a href="http://insights.thoughtworkers.org/" title="ThoughtWorks洞见" target="_blank">ThoughtWorks洞见</a><ul></ul><a href="http://ifeve.com/" title="并发编程网" target="_blank">并发编程网</a><ul></ul><a href="http://www.infoq.com/cn" title="InfoQ" target="_blank">InfoQ</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">Java工匠.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
